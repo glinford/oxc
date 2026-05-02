@@ -243,6 +243,19 @@ fn format_conflicting_config_names(config_names: &[String]) -> String {
     format!("{}, and {last}", quoted_names.join(", "))
 }
 
+/// Format candidate config names for discovery telemetry.
+pub fn format_config_probe_names(names: &[String]) -> String {
+    debug_assert!(names.len() > 1);
+
+    let formatted_names = names.iter().map(|name| format!("\"{name}\"")).collect::<Vec<_>>();
+    if formatted_names.len() == 2 {
+        return format!("{} and {}", formatted_names[0], formatted_names[1]);
+    }
+
+    let (tail, formatted_names) = formatted_names.split_last().unwrap();
+    format!("{}, and {tail}", formatted_names.join(", "))
+}
+
 #[cfg(test)]
 mod test {
     use std::path::Path;
