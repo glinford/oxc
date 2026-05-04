@@ -27,6 +27,21 @@ pub fn convert_config_to_json_literal(object: &str) -> String {
         .to_string()
 }
 
+pub fn normalize_embedded_block(raw: &str) -> String {
+    let smallest_pad = raw
+        .lines()
+        .filter(|row| !row.trim().is_empty())
+        .map(|row| row.chars().take_while(|ch| ch.is_whitespace()).count())
+        .min()
+        .unwrap_or_default();
+
+    raw.lines()
+        .filter(|row| !row.trim().is_empty())
+        .map(|row| if row.len() >= smallest_pad { &row[smallest_pad..] } else { row })
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
 #[cfg(test)]
 mod tests {
     use super::convert_config_to_json_literal;
