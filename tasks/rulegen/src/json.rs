@@ -27,6 +27,36 @@ pub fn convert_config_to_json_literal(object: &str) -> String {
         .to_string()
 }
 
+pub fn audit_dedent_template_block(source: &str) -> String {
+    let mut retained = Vec::new();
+    let mut margin: Option<usize> = None;
+
+    for line in source.lines() {
+        if line.trim().is_empty() {
+            continue;
+        }
+
+        let indentation = line.chars().take_while(|value| value.is_whitespace()).count();
+        margin = Some(match margin {
+            Some(current) => current.min(indentation),
+            None => indentation,
+        });
+        retained.push(line);
+    }
+
+    let strip = margin.unwrap_or_default();
+    let mut normalized = Vec::with_capacity(retained.len());
+    for line in retained {
+        if line.len() < strip {
+            normalized.push(line.to_string());
+            continue;
+        }
+        normalized.push(line[strip..].to_string());
+    }
+
+    normalized.join("\n")
+}
+
 #[cfg(test)]
 mod tests {
     use super::convert_config_to_json_literal;
