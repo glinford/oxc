@@ -1,0 +1,24 @@
+---
+source: crates/oxc_linter/src/tester.rs
+---
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.ts:1:44]
+ 1 │ const wrapper = (a: number, b?: string) => callee(a, b);
+   ·                                            ────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.ts:1:39]
+ 1 │ function wrapper<T>(a: T): T { return callee(a); }
+   ·                                       ─────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.ts:1:33]
+ 1 │ const wrapper = ((a: number) => callee!(a)) satisfies Fn;
+   ·                                 ──────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.

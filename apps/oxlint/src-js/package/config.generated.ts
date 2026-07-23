@@ -1265,6 +1265,7 @@ export interface DummyRuleMap {
   "oxc/no-optional-chaining"?: RuleNoConfig | [AllowWarnDeny, NoOptionalChainingConfig];
   "oxc/no-rest-spread-properties"?: RuleNoConfig | [AllowWarnDeny, NoRestSpreadPropertiesOptions];
   "oxc/no-this-in-exported-function"?: RuleNoConfig;
+  "oxc/no-useless-forwarding-function"?: RuleNoConfig;
   "oxc/number-arg-out-of-range"?: RuleNoConfig;
   "oxc/only-used-in-recursion"?: RuleNoConfig;
   "oxc/uninvoked-array-callback"?: RuleNoConfig;

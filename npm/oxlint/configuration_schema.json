@@ -5989,6 +5989,9 @@
         "oxc/no-this-in-exported-function": {
           "$ref": "#/definitions/RuleNoConfig"
         },
+        "oxc/no-useless-forwarding-function": {
+          "$ref": "#/definitions/RuleNoConfig"
+        },
         "oxc/number-arg-out-of-range": {
           "$ref": "#/definitions/RuleNoConfig"
         },

@@ -402,6 +402,7 @@ pub use crate::rules::oxc::no_map_spread::NoMapSpread as OxcNoMapSpread;
 pub use crate::rules::oxc::no_optional_chaining::NoOptionalChaining as OxcNoOptionalChaining;
 pub use crate::rules::oxc::no_rest_spread_properties::NoRestSpreadProperties as OxcNoRestSpreadProperties;
 pub use crate::rules::oxc::no_this_in_exported_function::NoThisInExportedFunction as OxcNoThisInExportedFunction;
+pub use crate::rules::oxc::no_useless_forwarding_function::NoUselessForwardingFunction as OxcNoUselessForwardingFunction;
 pub use crate::rules::oxc::number_arg_out_of_range::NumberArgOutOfRange as OxcNumberArgOutOfRange;
 pub use crate::rules::oxc::only_used_in_recursion::OnlyUsedInRecursion as OxcOnlyUsedInRecursion;
 pub use crate::rules::oxc::uninvoked_array_callback::UninvokedArrayCallback as OxcUninvokedArrayCallback;
@@ -1526,6 +1527,7 @@ pub enum RuleEnum {
     OxcNoOptionalChaining(OxcNoOptionalChaining),
     OxcNoRestSpreadProperties(OxcNoRestSpreadProperties),
     OxcNoThisInExportedFunction(OxcNoThisInExportedFunction),
+    OxcNoUselessForwardingFunction(OxcNoUselessForwardingFunction),
     OxcNumberArgOutOfRange(OxcNumberArgOutOfRange),
     OxcOnlyUsedInRecursion(OxcOnlyUsedInRecursion),
     OxcUninvokedArrayCallback(OxcUninvokedArrayCallback),
@@ -2466,7 +2468,8 @@ const OXC_NO_MAP_SPREAD_ID: usize = OXC_NO_CONST_ENUM_ID + 1usize;
 const OXC_NO_OPTIONAL_CHAINING_ID: usize = OXC_NO_MAP_SPREAD_ID + 1usize;
 const OXC_NO_REST_SPREAD_PROPERTIES_ID: usize = OXC_NO_OPTIONAL_CHAINING_ID + 1usize;
 const OXC_NO_THIS_IN_EXPORTED_FUNCTION_ID: usize = OXC_NO_REST_SPREAD_PROPERTIES_ID + 1usize;
-const OXC_NUMBER_ARG_OUT_OF_RANGE_ID: usize = OXC_NO_THIS_IN_EXPORTED_FUNCTION_ID + 1usize;
+const OXC_NO_USELESS_FORWARDING_FUNCTION_ID: usize = OXC_NO_THIS_IN_EXPORTED_FUNCTION_ID + 1usize;
+const OXC_NUMBER_ARG_OUT_OF_RANGE_ID: usize = OXC_NO_USELESS_FORWARDING_FUNCTION_ID + 1usize;
 const OXC_ONLY_USED_IN_RECURSION_ID: usize = OXC_NUMBER_ARG_OUT_OF_RANGE_ID + 1usize;
 const OXC_UNINVOKED_ARRAY_CALLBACK_ID: usize = OXC_ONLY_USED_IN_RECURSION_ID + 1usize;
 const NEXTJS_GOOGLE_FONT_DISPLAY_ID: usize = OXC_UNINVOKED_ARRAY_CALLBACK_ID + 1usize;
@@ -3449,6 +3452,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OXC_NO_OPTIONAL_CHAINING_ID,
             Self::OxcNoRestSpreadProperties(_) => OXC_NO_REST_SPREAD_PROPERTIES_ID,
             Self::OxcNoThisInExportedFunction(_) => OXC_NO_THIS_IN_EXPORTED_FUNCTION_ID,
+            Self::OxcNoUselessForwardingFunction(_) => OXC_NO_USELESS_FORWARDING_FUNCTION_ID,
             Self::OxcNumberArgOutOfRange(_) => OXC_NUMBER_ARG_OUT_OF_RANGE_ID,
             Self::OxcOnlyUsedInRecursion(_) => OXC_ONLY_USED_IN_RECURSION_ID,
             Self::OxcUninvokedArrayCallback(_) => OXC_UNINVOKED_ARRAY_CALLBACK_ID,
@@ -4417,6 +4421,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OxcNoOptionalChaining::NAME,
             Self::OxcNoRestSpreadProperties(_) => OxcNoRestSpreadProperties::NAME,
             Self::OxcNoThisInExportedFunction(_) => OxcNoThisInExportedFunction::NAME,
+            Self::OxcNoUselessForwardingFunction(_) => OxcNoUselessForwardingFunction::NAME,
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::NAME,
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::NAME,
             Self::OxcUninvokedArrayCallback(_) => OxcUninvokedArrayCallback::NAME,
@@ -5425,6 +5430,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OxcNoOptionalChaining::CATEGORY,
             Self::OxcNoRestSpreadProperties(_) => OxcNoRestSpreadProperties::CATEGORY,
             Self::OxcNoThisInExportedFunction(_) => OxcNoThisInExportedFunction::CATEGORY,
+            Self::OxcNoUselessForwardingFunction(_) => OxcNoUselessForwardingFunction::CATEGORY,
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::CATEGORY,
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::CATEGORY,
             Self::OxcUninvokedArrayCallback(_) => OxcUninvokedArrayCallback::CATEGORY,
@@ -6404,6 +6410,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OxcNoOptionalChaining::FIX,
             Self::OxcNoRestSpreadProperties(_) => OxcNoRestSpreadProperties::FIX,
             Self::OxcNoThisInExportedFunction(_) => OxcNoThisInExportedFunction::FIX,
+            Self::OxcNoUselessForwardingFunction(_) => OxcNoUselessForwardingFunction::FIX,
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::FIX,
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::FIX,
             Self::OxcUninvokedArrayCallback(_) => OxcUninvokedArrayCallback::FIX,
@@ -7579,6 +7586,9 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OxcNoOptionalChaining::documentation(),
             Self::OxcNoRestSpreadProperties(_) => OxcNoRestSpreadProperties::documentation(),
             Self::OxcNoThisInExportedFunction(_) => OxcNoThisInExportedFunction::documentation(),
+            Self::OxcNoUselessForwardingFunction(_) => {
+                OxcNoUselessForwardingFunction::documentation()
+            }
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::documentation(),
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::documentation(),
             Self::OxcUninvokedArrayCallback(_) => OxcUninvokedArrayCallback::documentation(),
@@ -9741,6 +9751,10 @@ impl RuleEnum {
                 OxcNoThisInExportedFunction::config_schema(generator)
                     .or_else(|| OxcNoThisInExportedFunction::schema(generator))
             }
+            Self::OxcNoUselessForwardingFunction(_) => {
+                OxcNoUselessForwardingFunction::config_schema(generator)
+                    .or_else(|| OxcNoUselessForwardingFunction::schema(generator))
+            }
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::config_schema(generator)
                 .or_else(|| OxcNumberArgOutOfRange::schema(generator)),
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::config_schema(generator)
@@ -10934,6 +10948,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => "oxc",
             Self::OxcNoRestSpreadProperties(_) => "oxc",
             Self::OxcNoThisInExportedFunction(_) => "oxc",
+            Self::OxcNoUselessForwardingFunction(_) => "oxc",
             Self::OxcNumberArgOutOfRange(_) => "oxc",
             Self::OxcOnlyUsedInRecursion(_) => "oxc",
             Self::OxcUninvokedArrayCallback(_) => "oxc",
@@ -13253,6 +13268,9 @@ impl RuleEnum {
             Self::OxcNoThisInExportedFunction(_) => Ok(Self::OxcNoThisInExportedFunction(
                 OxcNoThisInExportedFunction::from_configuration(value)?,
             )),
+            Self::OxcNoUselessForwardingFunction(_) => Ok(Self::OxcNoUselessForwardingFunction(
+                OxcNoUselessForwardingFunction::from_configuration(value)?,
+            )),
             Self::OxcNumberArgOutOfRange(_) => {
                 Ok(Self::OxcNumberArgOutOfRange(OxcNumberArgOutOfRange::from_configuration(value)?))
             }
@@ -14517,6 +14535,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(rule) => rule.to_configuration(),
             Self::OxcNoRestSpreadProperties(rule) => rule.to_configuration(),
             Self::OxcNoThisInExportedFunction(rule) => rule.to_configuration(),
+            Self::OxcNoUselessForwardingFunction(rule) => rule.to_configuration(),
             Self::OxcNumberArgOutOfRange(rule) => rule.to_configuration(),
             Self::OxcOnlyUsedInRecursion(rule) => rule.to_configuration(),
             Self::OxcUninvokedArrayCallback(rule) => rule.to_configuration(),
@@ -15370,6 +15389,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(rule) => rule.run(node, ctx),
             Self::OxcNoRestSpreadProperties(rule) => rule.run(node, ctx),
             Self::OxcNoThisInExportedFunction(rule) => rule.run(node, ctx),
+            Self::OxcNoUselessForwardingFunction(rule) => rule.run(node, ctx),
             Self::OxcNumberArgOutOfRange(rule) => rule.run(node, ctx),
             Self::OxcOnlyUsedInRecursion(rule) => rule.run(node, ctx),
             Self::OxcUninvokedArrayCallback(rule) => rule.run(node, ctx),
@@ -16233,6 +16253,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(rule) => rule.run_once(ctx),
             Self::OxcNoRestSpreadProperties(rule) => rule.run_once(ctx),
             Self::OxcNoThisInExportedFunction(rule) => rule.run_once(ctx),
+            Self::OxcNoUselessForwardingFunction(rule) => rule.run_once(ctx),
             Self::OxcNumberArgOutOfRange(rule) => rule.run_once(ctx),
             Self::OxcOnlyUsedInRecursion(rule) => rule.run_once(ctx),
             Self::OxcUninvokedArrayCallback(rule) => rule.run_once(ctx),
@@ -17203,6 +17224,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::OxcNoRestSpreadProperties(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::OxcNoThisInExportedFunction(rule) => rule.run_on_jest_node(jest_node, ctx),
+            Self::OxcNoUselessForwardingFunction(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::OxcNumberArgOutOfRange(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::OxcOnlyUsedInRecursion(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::OxcUninvokedArrayCallback(rule) => rule.run_on_jest_node(jest_node, ctx),
@@ -18077,6 +18099,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(rule) => rule.should_run(ctx),
             Self::OxcNoRestSpreadProperties(rule) => rule.should_run(ctx),
             Self::OxcNoThisInExportedFunction(rule) => rule.should_run(ctx),
+            Self::OxcNoUselessForwardingFunction(rule) => rule.should_run(ctx),
             Self::OxcNumberArgOutOfRange(rule) => rule.should_run(ctx),
             Self::OxcOnlyUsedInRecursion(rule) => rule.should_run(ctx),
             Self::OxcUninvokedArrayCallback(rule) => rule.should_run(ctx),
@@ -19241,6 +19264,9 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OxcNoOptionalChaining::IS_TSGOLINT_RULE,
             Self::OxcNoRestSpreadProperties(_) => OxcNoRestSpreadProperties::IS_TSGOLINT_RULE,
             Self::OxcNoThisInExportedFunction(_) => OxcNoThisInExportedFunction::IS_TSGOLINT_RULE,
+            Self::OxcNoUselessForwardingFunction(_) => {
+                OxcNoUselessForwardingFunction::IS_TSGOLINT_RULE
+            }
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::IS_TSGOLINT_RULE,
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::IS_TSGOLINT_RULE,
             Self::OxcUninvokedArrayCallback(_) => OxcUninvokedArrayCallback::IS_TSGOLINT_RULE,
@@ -20309,6 +20335,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OxcNoOptionalChaining::VERSION,
             Self::OxcNoRestSpreadProperties(_) => OxcNoRestSpreadProperties::VERSION,
             Self::OxcNoThisInExportedFunction(_) => OxcNoThisInExportedFunction::VERSION,
+            Self::OxcNoUselessForwardingFunction(_) => OxcNoUselessForwardingFunction::VERSION,
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::VERSION,
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::VERSION,
             Self::OxcUninvokedArrayCallback(_) => OxcUninvokedArrayCallback::VERSION,
@@ -21364,6 +21391,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OxcNoOptionalChaining::HAS_CONFIG,
             Self::OxcNoRestSpreadProperties(_) => OxcNoRestSpreadProperties::HAS_CONFIG,
             Self::OxcNoThisInExportedFunction(_) => OxcNoThisInExportedFunction::HAS_CONFIG,
+            Self::OxcNoUselessForwardingFunction(_) => OxcNoUselessForwardingFunction::HAS_CONFIG,
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::HAS_CONFIG,
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::HAS_CONFIG,
             Self::OxcUninvokedArrayCallback(_) => OxcUninvokedArrayCallback::HAS_CONFIG,
@@ -22352,6 +22380,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(_) => OxcNoOptionalChaining::INFO,
             Self::OxcNoRestSpreadProperties(_) => OxcNoRestSpreadProperties::INFO,
             Self::OxcNoThisInExportedFunction(_) => OxcNoThisInExportedFunction::INFO,
+            Self::OxcNoUselessForwardingFunction(_) => OxcNoUselessForwardingFunction::INFO,
             Self::OxcNumberArgOutOfRange(_) => OxcNumberArgOutOfRange::INFO,
             Self::OxcOnlyUsedInRecursion(_) => OxcOnlyUsedInRecursion::INFO,
             Self::OxcUninvokedArrayCallback(_) => OxcUninvokedArrayCallback::INFO,
@@ -23217,6 +23246,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(rule) => rule.types_info(),
             Self::OxcNoRestSpreadProperties(rule) => rule.types_info(),
             Self::OxcNoThisInExportedFunction(rule) => rule.types_info(),
+            Self::OxcNoUselessForwardingFunction(rule) => rule.types_info(),
             Self::OxcNumberArgOutOfRange(rule) => rule.types_info(),
             Self::OxcOnlyUsedInRecursion(rule) => rule.types_info(),
             Self::OxcUninvokedArrayCallback(rule) => rule.types_info(),
@@ -24067,6 +24097,7 @@ impl RuleEnum {
             Self::OxcNoOptionalChaining(rule) => rule.run_info(),
             Self::OxcNoRestSpreadProperties(rule) => rule.run_info(),
             Self::OxcNoThisInExportedFunction(rule) => rule.run_info(),
+            Self::OxcNoUselessForwardingFunction(rule) => rule.run_info(),
             Self::OxcNumberArgOutOfRange(rule) => rule.run_info(),
             Self::OxcOnlyUsedInRecursion(rule) => rule.run_info(),
             Self::OxcUninvokedArrayCallback(rule) => rule.run_info(),
@@ -25043,6 +25074,7 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         RuleEnum::OxcNoOptionalChaining(OxcNoOptionalChaining::default()),
         RuleEnum::OxcNoRestSpreadProperties(OxcNoRestSpreadProperties::default()),
         RuleEnum::OxcNoThisInExportedFunction(OxcNoThisInExportedFunction::default()),
+        RuleEnum::OxcNoUselessForwardingFunction(OxcNoUselessForwardingFunction::default()),
         RuleEnum::OxcNumberArgOutOfRange(OxcNumberArgOutOfRange::default()),
         RuleEnum::OxcOnlyUsedInRecursion(OxcOnlyUsedInRecursion::default()),
         RuleEnum::OxcUninvokedArrayCallback(OxcUninvokedArrayCallback::default()),

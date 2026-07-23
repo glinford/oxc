@@ -1,0 +1,87 @@
+---
+source: crates/oxc_linter/src/tester.rs
+---
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:27]
+ 1 │ const wrapper = (a, b) => callee(a, b);
+   ·                           ────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:28]
+ 1 │ const wrapper = (a, b) => (callee(a, b));
+   ·                            ────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:36]
+ 1 │ const wrapper = (a, b) => { return callee(a, b); };
+   ·                                    ────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:33]
+ 1 │ function wrapper(a, b) { return callee(a, b); }
+   ·                                 ────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:42]
+ 1 │ const wrapper = function (a, b) { return callee(a, b); };
+   ·                                          ────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:41]
+ 1 │ const object = { wrapper(a, b) { return callee(a, b); } };
+   ·                                         ────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:40]
+ 1 │ class Example { wrapper(a, b) { return callee(a, b); } }
+   ·                                        ────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:23]
+ 1 │ const wrapper = () => callee();
+   ·                       ────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:30]
+ 1 │ const wrapper = (...args) => callee(...args);
+   ·                              ───────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:41]
+ 1 │ function wrapper(a, ...args) { ; return callee(a, ...args); ; }
+   ·                                         ──────────────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:45]
+ 1 │ const eval = callee; const wrapper = (a) => eval(a);
+   ·                                             ───────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
+
+  ⚠ oxc(no-useless-forwarding-function): Avoid a function that only forwards its parameters.
+   ╭─[no_useless_forwarding_function.tsx:1:46]
+ 1 │ const outer = () => { const wrapper = (a) => outer(a); return wrapper; };
+   ·                                              ────────
+   ╰────
+  help: Consider using the target function directly or adding behavior to the wrapper.
