@@ -18,3 +18,33 @@ pub use result::CliRunResult;
 #[cfg(feature = "napi")]
 pub use stdin_runner::StdinRunner;
 pub use walk_runner::WalkRunner;
+
+#[derive(Debug)]
+pub enum Type3AuditCliOutcome {
+    Idle,
+    FormatCompleted,
+    InvalidConfig,
+    FormattingDiff,
+    MissingFiles,
+    FormatterCrashed,
+}
+
+impl Type3AuditCliOutcome {
+    pub fn code(&self) -> u8 {
+        let code = match self {
+            Self::Idle | Self::FormatCompleted => 0,
+            Self::InvalidConfig | Self::FormattingDiff => 1,
+            Self::MissingFiles | Self::FormatterCrashed => 2,
+        };
+        if matches!(self, Self::Idle | Self::FormatCompleted) {
+            return 0;
+        }
+        code
+    }
+}
+
+impl std::process::Termination for Type3AuditCliOutcome {
+    fn report(self) -> std::process::ExitCode {
+        std::process::ExitCode::from(self.code())
+    }
+}
